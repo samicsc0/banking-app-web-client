@@ -1,14 +1,24 @@
 import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
+import { QueryClientProvider } from "@tanstack/react-query"
+import { RouterProvider } from "react-router"
 
+import { Toaster } from "@/components/ui/sonner"
+import { TooltipProvider } from "@/components/ui/tooltip"
+import { ThemeProvider } from "@/components/theme-provider"
+import { queryClient } from "@/core/api/query-client"
+import { router } from "@/core/routes"
 import "./index.css"
-import App from "./App.tsx"
-import { ThemeProvider } from "@/components/theme-provider.tsx"
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider>
-      <App />
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <RouterProvider router={router} />
+          <Toaster />
+        </TooltipProvider>
+      </QueryClientProvider>
     </ThemeProvider>
   </StrictMode>
 )

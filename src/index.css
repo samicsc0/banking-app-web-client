@@ -8,6 +8,28 @@
   --font-heading: "Raleway", sans-serif;
   --font-sans: "Montserrat", sans-serif;
 
+  --text-display: 32px;
+  --text-display--line-height: 1.15;
+  --text-display--font-weight: 600;
+  --text-title: 24px;
+  --text-title--line-height: 1.2;
+  --text-title--font-weight: 600;
+  --text-section: 18px;
+  --text-section--line-height: 1.3;
+  --text-section--font-weight: 600;
+  --text-body: 15px;
+  --text-body--line-height: 1.45;
+  --text-body--font-weight: 500;
+  --text-copy: 14px;
+  --text-copy--line-height: 1.45;
+  --text-copy--font-weight: 400;
+  --text-label: 13px;
+  --text-label--line-height: 1.35;
+  --text-label--font-weight: 500;
+  --text-caption: 12px;
+  --text-caption--line-height: 1.35;
+  --text-caption--font-weight: 400;
+
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-primary-soft: var(--primary-soft);
@@ -43,6 +65,14 @@
   --color-destructive-foreground: #ffffff;
   --color-ring: var(--accent);
   --color-input: var(--border);
+  --color-sidebar: var(--surface);
+  --color-sidebar-foreground: var(--ink);
+  --color-sidebar-primary: var(--primary);
+  --color-sidebar-primary-foreground: var(--on-primary);
+  --color-sidebar-accent: var(--primary-soft);
+  --color-sidebar-accent-foreground: var(--primary);
+  --color-sidebar-border: var(--border);
+  --color-sidebar-ring: var(--accent);
 
   --radius-card: 16px;
   --radius-control: 12px;
