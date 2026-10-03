@@ -1,18 +1,27 @@
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export function App() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+    <div className="flex min-h-svh flex-col gap-6 bg-background p-6">
+      <div className="flex flex-wrap items-center gap-3">
+        <Button>Primary</Button>
+        <Button variant="soft">Soft</Button>
+        <Button variant="danger">Danger</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Button size="compact">Compact</Button>
+        <Button size="compact" variant="outline">
+          Compact outline
+        </Button>
+        <Button disabled>Disabled</Button>
+      </div>
+      <div className="flex max-w-sm flex-col gap-3">
+        <Input placeholder="Account number" defaultValue="100234" />
+        <Input placeholder="Placeholder only" />
+        <Input placeholder="Disabled field" disabled defaultValue="Frozen" />
       </div>
     </div>
   )
