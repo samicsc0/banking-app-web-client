@@ -5,9 +5,12 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { ChevronLeftIcon } from "lucide-react"
 import { Link } from "react-router"
 
+import { cn } from "cn"
+
 type PageHeaderProps = {
   title: string
   subtitle?: string
+  subtitleClassName?: string
   backTo?: string
   action?: ReactNode
 }
@@ -15,6 +18,7 @@ type PageHeaderProps = {
 export function PageHeader({
   title,
   subtitle,
+  subtitleClassName,
   backTo,
   action,
 }: PageHeaderProps) {
@@ -35,7 +39,9 @@ export function PageHeader({
         <div className="min-w-0">
           <h1 className="font-heading text-title text-ink">{title}</h1>
           {subtitle ? (
-            <p className="text-copy text-ink-muted">{subtitle}</p>
+            <p className={cn("text-copy text-ink-muted", subtitleClassName)}>
+              {subtitle}
+            </p>
           ) : null}
         </div>
       </div>

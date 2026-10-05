@@ -1,9 +1,9 @@
 import type { AccountType, TransactionType } from "@/core/api/types"
 import {
   ArrowLeftRightIcon,
+  DollarSign,
   LandmarkIcon,
   PercentIcon,
-  PiggyBankIcon,
   ReceiptIcon,
   RefreshCwIcon,
   WalletIcon,
@@ -18,7 +18,7 @@ export function AccountGlyph({
 }) {
   switch (type) {
     case "SAVINGS":
-      return <PiggyBankIcon className={className} />
+      return <DollarSign className={className} />
     case "MONEY_MARKET":
       return <PercentIcon className={className} />
     case "INDIVIDUAL_RETIREMENT_ACCOUNT":

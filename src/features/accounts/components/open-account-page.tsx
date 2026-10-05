@@ -4,7 +4,6 @@ import { FormProvider, useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
 
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { getErrorMessage } from "@/core/api/errors"
 import { MoneyField } from "@/core/components/money-field"
 import { Page } from "@/core/components/page"
@@ -28,13 +27,14 @@ export function OpenAccountPage() {
   const selected = form.watch("accountType")
 
   return (
-    <Page className="max-w-3xl">
+    <Page>
       <PageHeader
         backTo="/accounts"
         subtitle="Add another account to your profile."
+        subtitleClassName="hidden md:block"
         title="Open an account"
       />
-      <Card className="bg-surface p-4 ring-border md:p-6">
+      <div className="flex w-full max-w-xl flex-col gap-5 md:rounded-xl md:bg-surface md:p-6 md:ring-1 md:ring-border">
         <FormProvider {...form}>
           <form
             className="flex flex-col gap-5"
@@ -59,7 +59,7 @@ export function OpenAccountPage() {
                 return (
                   <Button
                     className={cn(
-                      "h-auto justify-start px-4 py-3 text-left font-normal",
+                      "h-auto justify-start bg-surface px-4 py-3 text-left font-normal",
                       active && "border-primary"
                     )}
                     key={choice.type}
@@ -121,7 +121,7 @@ export function OpenAccountPage() {
             </div>
           </form>
         </FormProvider>
-      </Card>
+      </div>
     </Page>
   )
 }
