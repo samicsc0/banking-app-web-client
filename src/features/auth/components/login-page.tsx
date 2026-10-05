@@ -6,6 +6,7 @@ import { Link, useSearchParams } from "react-router"
 import { Button } from "@/components/ui/button"
 import { getErrorMessage } from "@/core/api/errors"
 import { Field } from "@/core/components/field"
+import { Wordmark } from "@/core/components/wordmark"
 import { loginSchema, type LoginValues } from "@/features/auth/other/schema"
 import { useLogin } from "@/features/auth/hooks/use-auth"
 import { FormProvider } from "react-hook-form"
@@ -22,12 +23,15 @@ export function LoginPage() {
   return (
     <FormProvider {...form}>
       <form
-        className="flex flex-col gap-5"
+        className="flex flex-col gap-[22px]"
         noValidate
         onSubmit={form.handleSubmit((values) => login.mutate(values))}
       >
-        <header className="flex flex-col gap-2 text-center md:text-left">
-          <h1 className="font-heading text-title text-ink">Welcome back</h1>
+        <Wordmark className="mb-6 self-center md:hidden" size="lg" />
+        <header className="flex flex-col gap-2 text-center">
+          <h1 className="font-heading text-[26px] leading-[1.4] font-semibold text-ink">
+            Welcome back
+          </h1>
           <p className="text-copy text-ink-muted">
             Sign in to manage your accounts.
           </p>
@@ -52,10 +56,12 @@ export function LoginPage() {
           icon={LockIcon}
           label="Password"
           name="password"
-          placeholder="Your password"
+          placeholder="your password"
           type="password"
         />
-        <p className="text-right text-label text-primary">Forgot password?</p>
+        <p className="text-right text-label text-primary md:hidden">
+          Forgot password?
+        </p>
         {login.isError ? (
           <p className="text-caption text-debit" role="alert">
             {getErrorMessage(login.error)}

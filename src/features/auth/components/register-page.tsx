@@ -6,6 +6,7 @@ import { Link } from "react-router"
 import { Button } from "@/components/ui/button"
 import { getErrorMessage } from "@/core/api/errors"
 import { Field } from "@/core/components/field"
+import { Wordmark } from "@/core/components/wordmark"
 import { useRegister } from "@/features/auth/hooks/use-auth"
 import {
   registerSchema,
@@ -30,12 +31,13 @@ export function RegisterPage() {
   return (
     <FormProvider {...form}>
       <form
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-[22px]"
         noValidate
         onSubmit={form.handleSubmit((values) => register.mutate(values))}
       >
-        <header className="flex flex-col gap-2">
-          <h1 className="font-heading text-title text-ink">
+        <Wordmark className="mb-6 self-center md:hidden" size="lg" />
+        <header className="flex flex-col gap-2 text-center">
+          <h1 className="font-heading text-[26px] leading-[1.4] font-semibold text-ink">
             Create your account
           </h1>
           <p className="text-copy text-ink-muted">
@@ -63,23 +65,25 @@ export function RegisterPage() {
           name="username"
           placeholder="choose a username"
         />
-        <Field
-          autoComplete="tel"
-          icon={PhoneIcon}
-          label="Phone number"
-          name="phoneNumber"
-          placeholder="+251 9xx xxx xxx"
-          type="tel"
-        />
-        <Field
-          autoComplete="email"
-          icon={MailIcon}
-          label="Email (optional)"
-          name="email"
-          placeholder="you@example.com"
-          type="email"
-        />
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid gap-[22px] md:grid-cols-2 md:gap-3">
+          <Field
+            autoComplete="tel"
+            icon={PhoneIcon}
+            label="Phone number"
+            name="phoneNumber"
+            placeholder="+251 9xx xxx xxx"
+            type="tel"
+          />
+          <Field
+            autoComplete="email"
+            icon={MailIcon}
+            label="Email (optional)"
+            name="email"
+            placeholder="you@example.com"
+            type="email"
+          />
+        </div>
+        <div className="grid gap-[22px] md:grid-cols-2 md:gap-3">
           <Field
             autoComplete="new-password"
             hint="At least 6 characters."
