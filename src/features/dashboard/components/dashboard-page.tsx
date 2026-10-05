@@ -5,7 +5,7 @@ import {
   ReceiptIcon,
 } from "lucide-react"
 import { useState } from "react"
-import { Link } from "react-router"
+import { Link, useNavigate } from "react-router"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -39,6 +39,7 @@ export function DashboardPage() {
   const transactions = useTransactions(primaryAccount?.id)
   const recent = (transactions.data?.pages[0]?.content ?? []).slice(0, 3)
   const user = profile.data
+  const navigate = useNavigate()
   const accountLabel = primaryAccount
     ? `${accountTypeLabel(primaryAccount.accountType)} ${maskAccount(primaryAccount.accountNumber)}`
     : undefined
@@ -68,7 +69,10 @@ export function DashboardPage() {
           </Button>
         </div>
         {user ? (
-          <Avatar className="size-12 bg-primary text-on-primary md:hidden">
+          <Avatar
+            className="size-12 bg-primary text-on-primary md:hidden"
+            onClick={() => navigate("/profile")}
+          >
             <AvatarFallback className="bg-primary text-on-primary">
               {initials(user.firstName, user.lastName)}
             </AvatarFallback>
