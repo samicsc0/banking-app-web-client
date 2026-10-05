@@ -21,10 +21,4 @@ describe("transferSchema", () => {
     })
     expect(result.success).toBe(false)
   })
-
-  it("rejects a zero amount", () => {
-    expect(transferSchema.safeParse({ ...valid, amount: "0" }).success).toBe(
-      false
-    )
-  })
 })

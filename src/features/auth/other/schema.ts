@@ -13,7 +13,7 @@ export const loginSchema = z.object({
   password: z.string().min(1, "Enter your password."),
 })
 
-export const newPasswordSchema = z
+const newPasswordSchema = z
   .string()
   .min(8, "Use at least 8 characters.")
   .refine((value) => /[A-Za-z]/.test(value) && /\d/.test(value), {
