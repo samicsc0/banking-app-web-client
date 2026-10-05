@@ -141,7 +141,9 @@
   [role="button"]:not(:disabled) {
     cursor: pointer;
   }
-  html {
-    @apply font-sans;
+  html,
+  body,
+  #root {
+    @apply h-full overflow-hidden font-sans;
   }
 }
