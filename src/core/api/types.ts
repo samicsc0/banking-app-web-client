@@ -121,7 +121,7 @@ export type TransferReceipt = {
   fromAccountLabel: string
   toAccountNumber: string
   note: string
-  reference: string
+  reference: string | null
   timestamp: string
   balanceAfter: number
 }

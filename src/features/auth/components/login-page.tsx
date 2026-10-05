@@ -59,9 +59,6 @@ export function LoginPage() {
           placeholder="your password"
           type="password"
         />
-        <p className="text-right text-label text-primary md:hidden">
-          Forgot password?
-        </p>
         {login.isError ? (
           <p className="text-caption text-debit" role="alert">
             {getErrorMessage(login.error)}

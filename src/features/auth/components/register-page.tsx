@@ -86,11 +86,11 @@ export function RegisterPage() {
         <div className="grid gap-[22px] md:grid-cols-2 md:gap-3">
           <Field
             autoComplete="new-password"
-            hint="At least 6 characters."
+            hint="At least 8 characters, with letters and a number."
             icon={LockIcon}
             label="Password"
             name="password"
-            placeholder="at least 6 characters"
+            placeholder="at least 8 characters"
             type="password"
           />
           <Field

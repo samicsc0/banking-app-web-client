@@ -6,20 +6,26 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Page } from "@/core/components/page"
-import type { TransferReceipt } from "@/core/api/types"
 import { formatEtb, formatTimestamp, groupAccount } from "@/core/lib/format"
+import {
+  asTransferReceipt,
+  readTransferReceipt,
+} from "@/features/transfer/other/receipt"
 
 export function TransferSuccessPage() {
   const location = useLocation()
   const navigate = useNavigate()
-  const receipt = location.state as TransferReceipt | null
+  const receipt = asTransferReceipt(location.state) ?? readTransferReceipt()
 
   if (!receipt?.amount) {
     return <Navigate replace to="/transfer" />
   }
 
   const share = async () => {
-    const text = `Sent ${formatEtb(receipt.amount)} to ${receipt.toAccountNumber}. Reference ${receipt.reference}.`
+    const reference = receipt.reference
+      ? ` Reference ${receipt.reference}.`
+      : ""
+    const text = `Sent ${formatEtb(receipt.amount)} to ${receipt.toAccountNumber}.${reference}`
     try {
       if (navigator.share) {
         await navigator.share({ title: "Transfer receipt", text })
@@ -47,8 +53,12 @@ export function TransferSuccessPage() {
         <Row label="From" value={receipt.fromAccountLabel} />
         <Separator />
         <Row label="Date" value={formatTimestamp(receipt.timestamp)} />
-        <Separator />
-        <Row label="Reference" value={receipt.reference} />
+        {receipt.reference ? (
+          <>
+            <Separator />
+            <Row label="Reference" value={receipt.reference} />
+          </>
+        ) : null}
         <Separator />
         <Row label="New balance" value={formatEtb(receipt.balanceAfter)} />
       </Card>

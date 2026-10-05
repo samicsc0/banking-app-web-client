@@ -13,6 +13,13 @@ export const loginSchema = z.object({
   password: z.string().min(1, "Enter your password."),
 })
 
+export const newPasswordSchema = z
+  .string()
+  .min(8, "Use at least 8 characters.")
+  .refine((value) => /[A-Za-z]/.test(value) && /\d/.test(value), {
+    message: "Use letters and a number.",
+  })
+
 export const registerSchema = z
   .object({
     firstName: z.string().trim().min(1, "Enter your first name."),
@@ -20,7 +27,7 @@ export const registerSchema = z
     username: z.string().trim().min(1, "Choose a username."),
     phoneNumber: z.string().trim().min(7, "Enter your phone number."),
     email: optionalEmail,
-    password: z.string().min(6, "Password must be at least 6 characters."),
+    password: newPasswordSchema,
     confirmPassword: z.string().min(1, "Confirm your password."),
   })
   .refine((value) => value.password === value.confirmPassword, {

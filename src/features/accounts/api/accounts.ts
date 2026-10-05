@@ -1,7 +1,9 @@
 import { axiosClient } from "@/core/api/axios-client"
 import type { Account, AccountType, Page } from "@/core/api/types"
 
-export async function fetchAccounts(page = 0, size = 20) {
+export const ACCOUNT_SUMMARY_SIZE = 50
+
+export async function fetchAccounts(page = 0, size = ACCOUNT_SUMMARY_SIZE) {
   const { data } = await axiosClient.get<Page<Account>>("/api/accounts", {
     params: { page, size, sort: "id,asc" },
   })

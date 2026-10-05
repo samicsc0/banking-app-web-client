@@ -23,6 +23,7 @@ import {
 import { useAccounts } from "@/features/accounts/hooks/use-accounts"
 import { TransferReview } from "@/features/transfer/components/transfer-review"
 import { useTransfer } from "@/features/transfer/hooks/use-transfer"
+import { rememberTransferReceipt } from "@/features/transfer/other/receipt"
 import {
   transferSchema,
   type TransferValues,
@@ -179,6 +180,7 @@ export function TransferPage() {
             },
             {
               onSuccess: (receipt) => {
+                rememberTransferReceipt(receipt)
                 setReviewOpen(false)
                 navigate("/transfer/success", { state: receipt })
               },

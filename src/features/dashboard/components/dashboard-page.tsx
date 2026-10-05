@@ -23,6 +23,7 @@ import {
   maskAccount,
 } from "@/core/lib/format"
 import { AccountRow } from "@/features/accounts/components/account-row"
+import { summaryCoversAll } from "@/features/accounts/hooks/use-accounts"
 import { TransactionDetail } from "@/features/activity/components/transaction-detail"
 import { useTransactions } from "@/features/activity/hooks/use-transactions"
 import { NavIcon } from "@/core/lib/nav-icon"
@@ -33,6 +34,8 @@ export function DashboardPage() {
   const { profile, accounts } = useHome()
   const list = accounts.data?.content ?? []
   const total = list.reduce((sum, account) => sum + account.balance, 0)
+  const accountCount = accounts.data?.totalElements ?? list.length
+  const listedAll = accounts.data ? summaryCoversAll(accounts.data) : true
   const [hidden, setHidden] = useState(false)
   const [selected, setSelected] = useState<Transaction | null>(null)
   const primaryAccount = list[0]
@@ -109,10 +112,9 @@ export function DashboardPage() {
                 </Button>
               </div>
               <p className="text-copy text-white/80">
-                Across {accounts.data?.totalElements ?? list.length}{" "}
-                {(accounts.data?.totalElements ?? list.length) === 1
-                  ? "account"
-                  : "accounts"}
+                {listedAll
+                  ? `Across ${accountCount} ${accountCount === 1 ? "account" : "accounts"}`
+                  : `First ${list.length} of ${accountCount} accounts`}
               </p>
             </div>
           </Card>

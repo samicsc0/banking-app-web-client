@@ -1,10 +1,4 @@
-import {
-  ChevronRightIcon,
-  LockIcon,
-  LogOutIcon,
-  MailIcon,
-  PhoneIcon,
-} from "lucide-react"
+import { LogOutIcon, MailIcon, PhoneIcon } from "lucide-react"
 import { useNavigate } from "react-router"
 
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
@@ -19,7 +13,10 @@ import { Page } from "@/core/components/page"
 import { PageHeader } from "@/core/components/page-header"
 import { ThemeToggle } from "@/core/components/theme-toggle"
 import { formatEtb, initials } from "@/core/lib/format"
-import { useAccounts } from "@/features/accounts/hooks/use-accounts"
+import {
+  summaryCoversAll,
+  useAccounts,
+} from "@/features/accounts/hooks/use-accounts"
 import { useProfile } from "@/features/profile/hooks/use-profile"
 
 export function ProfilePage() {
@@ -28,6 +25,8 @@ export function ProfilePage() {
   const accounts = useAccounts()
   const list = accounts.data?.content ?? []
   const total = list.reduce((sum, account) => sum + account.balance, 0)
+  const listedAll = accounts.data ? summaryCoversAll(accounts.data) : true
+  const accountCount = accounts.data?.totalElements ?? list.length
   const user = profile.data
 
   const logout = () => {
@@ -77,9 +76,13 @@ export function ProfilePage() {
           <div className="flex flex-col gap-4">
             <Card className="bg-surface p-5 ring-border">
               <div className="flex items-center justify-between gap-3">
-                <p className="text-copy text-ink-muted">Across all accounts</p>
+                <p className="text-copy text-ink-muted">
+                  {listedAll ? "Across all accounts" : "Loaded accounts"}
+                </p>
                 <Badge variant="secondary">
-                  {list.length} {list.length === 1 ? "account" : "accounts"}
+                  {listedAll
+                    ? `${accountCount} ${accountCount === 1 ? "account" : "accounts"}`
+                    : `${list.length} of ${accountCount}`}
                 </Badge>
               </div>
               <p className="font-heading text-title text-ink">
@@ -87,20 +90,6 @@ export function ProfilePage() {
               </p>
             </Card>
             <Card className="gap-0 bg-surface py-0 ring-border">
-              <Button
-                className="h-auto w-full justify-start rounded-none px-4 py-4 font-normal"
-                type="button"
-                variant="ghost"
-              >
-                <span className="flex size-10 items-center justify-center rounded-full bg-surface-muted text-ink">
-                  <LockIcon className="size-4" />
-                </span>
-                <span className="flex-1 text-left text-body text-ink">
-                  Change password
-                </span>
-                <ChevronRightIcon className="size-4 text-ink-subtle" />
-              </Button>
-              <Separator />
               <Button
                 className="h-auto w-full justify-start rounded-none px-4 py-4 font-normal"
                 onClick={logout}

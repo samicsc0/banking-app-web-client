@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Link, useParams } from "react-router"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -24,6 +25,22 @@ export function AccountDetailPage() {
   const [selected, setSelected] = useState<Transaction | null>(null)
   const items = transactions.data?.pages.flatMap((page) => page.content) ?? []
   const groups = groupByDay(items)
+  const share = async () => {
+    if (!account.data) {
+      return
+    }
+    const text = `${accountTypeLabel(account.data.accountType)} ${groupAccount(account.data.accountNumber)}`
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: "Account", text })
+        return
+      }
+      await navigator.clipboard.writeText(text)
+      toast.success("Account number copied.")
+    } catch {
+      toast.error("Couldn't share this account.")
+    }
+  }
 
   return (
     <Page>
@@ -31,6 +48,8 @@ export function AccountDetailPage() {
         action={
           <Button
             aria-label="Share"
+            disabled={!account.data}
+            onClick={share}
             size="icon-sm"
             type="button"
             variant="outline"

@@ -44,7 +44,7 @@ export function greeting(date = new Date()) {
   return "Good evening"
 }
 
-function parseUtcTimestamp(timestamp: string) {
+export function parseUtcTimestamp(timestamp: string) {
   const normalized = /(?:Z|[+-]\d{2}:\d{2})$/.test(timestamp)
     ? timestamp
     : `${timestamp}Z`

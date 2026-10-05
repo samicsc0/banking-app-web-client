@@ -32,7 +32,9 @@ export function AccountsPage() {
         }
         subtitle={
           accounts.data
-            ? `${totalElements} ${totalElements === 1 ? "account" : "accounts"} · ${formatEtb(total)} total`
+            ? accounts.hasNextPage
+              ? `${content.length} of ${totalElements} accounts`
+              : `${totalElements} ${totalElements === 1 ? "account" : "accounts"} · ${formatEtb(total)} total`
             : undefined
         }
         title="My accounts"
