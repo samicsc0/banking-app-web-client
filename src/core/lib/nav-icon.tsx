@@ -4,6 +4,7 @@ import {
   HouseIcon,
   PlusIcon,
   ReceiptIcon,
+  ReceiptText,
   UserIcon,
 } from "lucide-react"
 
@@ -18,7 +19,7 @@ export function NavIcon({ to, className }: { to: string; className?: string }) {
     case "/bills":
       return <ReceiptIcon className={className} />
     case "/activity":
-      return <ReceiptIcon className={className} />
+      return <ReceiptText className={className} />
     case "/profile":
       return <UserIcon className={className} />
     default:
