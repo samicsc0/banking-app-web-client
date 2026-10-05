@@ -42,10 +42,7 @@ export function AccountSelect({
         onValueChange={(value) => field.onChange(value ?? "")}
         value={field.value ? String(field.value) : null}
       >
-        <SelectTrigger
-          className="h-[52px] w-full rounded-control border-border bg-surface px-3.5"
-          id={id}
-        >
+        <SelectTrigger className="h-[60px]" id={id}>
           {selected ? (
             <AccountSelectLabel account={selected} />
           ) : (

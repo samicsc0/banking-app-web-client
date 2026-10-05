@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Building } from "lucide-react"
 import { useEffect, useId } from "react"
 import { FormProvider, useController, useForm } from "react-hook-form"
 import { useSearchParams } from "react-router"
@@ -155,11 +156,11 @@ function BillerSelect() {
         onValueChange={(value) => field.onChange(value ?? "")}
         value={field.value ? String(field.value) : null}
       >
-        <SelectTrigger
-          className="h-[52px] w-full rounded-control border-border bg-surface px-3.5"
-          id={id}
-        >
-          <SelectValue placeholder="Choose a biller" />
+        <SelectTrigger id={id}>
+          <span className="flex min-w-0 items-center gap-3">
+            <Building className="size-5 text-ink" />
+            <SelectValue placeholder="Choose a biller" />
+          </span>
         </SelectTrigger>
         <SelectContent>
           {billers.map((biller) => (
