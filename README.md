@@ -1,6 +1,6 @@
-# Kifiya banking client
+# Banking client
 
-Responsive web client for the Kifiya banking API. It covers sign-in, registration, account overview, new accounts, transfers, bill payment, and transaction history in light and dark themes.
+Responsive web client for a banking API. It covers sign-in, registration, account overview, new accounts, transfers, bill payment, and transaction history in light and dark themes.
 
 ## Setup
 
@@ -11,11 +11,6 @@ pnpm dev
 ```
 
 The app runs at `http://localhost:5173`. `VITE_API_URL` defaults to `https://challenge-api.qena.dev`.
-
-Demo users on the hosted API:
-
-- `demo.jane` / `Password123!`
-- `demo.john` / `Password123!`
 
 ## Scripts
 
@@ -37,10 +32,8 @@ Server state uses TanStack Query. Forms use React Hook Form and Zod. UI is shadc
 
 Access and refresh tokens are stored in `localStorage`. The axios client in `src/core/api/axios-client.ts` sends `Authorization: Bearer <accessToken>`. On a 401 from a protected call it posts to `/api/auth/refresh-token` once, even if several requests fail together, stores the rotated tokens, and retries the original requests. If refresh fails, the session is cleared and the user is sent to `/login?expired=1`.
 
-Login and register send the password in the API field named `passwordHash`. The value is the password the user typed. The API hashes it.
-
-API error `code` values are mapped to short messages in `src/core/api/errors.ts`. Raw backend text is not shown.
+API error `code` values are mapped to short messages in `src/core/api/errors.ts`.
 
 ## Token storage trade-off
 
-`localStorage` keeps the session across reloads for this demo, and any script on the page can read it. A production bank would keep tokens in httpOnly cookies behind a backend-for-frontend so browser JavaScript cannot access them.
+`localStorage` keeps the session across reloads for this demo, and any script on the page can read it. On a production bank environment, keep tokens in httpOnly cookies behind a backend-for-frontend so browser JavaScript cannot access them.
