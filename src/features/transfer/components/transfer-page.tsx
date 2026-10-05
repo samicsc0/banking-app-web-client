@@ -6,6 +6,7 @@ import { useNavigate, useSearchParams } from "react-router"
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
+import { Separator } from "@/components/ui/separator"
 import { getErrorMessage } from "@/core/api/errors"
 import { AccountSelect } from "@/core/components/account-select"
 import { Field } from "@/core/components/field"
@@ -25,6 +26,7 @@ import {
   transferSchema,
   type TransferValues,
 } from "@/features/transfer/other/schema"
+import { cn } from "cn"
 
 export function TransferPage() {
   const [params] = useSearchParams()
@@ -67,6 +69,7 @@ export function TransferPage() {
           <FormProvider {...form}>
             <form
               className="flex flex-col gap-5"
+              id="transfer-form"
               noValidate
               onSubmit={form.handleSubmit(() => {
                 if (insufficient && selected) {
@@ -107,7 +110,11 @@ export function TransferPage() {
                   {getErrorMessage(transfer.error)}
                 </p>
               ) : null}
-              <Button disabled={insufficient} type="submit">
+              <Button
+                className="lg:hidden"
+                disabled={insufficient}
+                type="submit"
+              >
                 Continue
               </Button>
             </form>
@@ -136,7 +143,20 @@ export function TransferPage() {
             value={amount ? formatEtb(amount) : "—"}
           />
           <SummaryLine label="Fee" value={formatEtb(0)} />
-          <SummaryLine label="Total" value={amount ? formatEtb(amount) : "—"} />
+          <Separator />
+          <SummaryLine
+            label="Total"
+            value={amount ? formatEtb(amount) : "—"}
+            valueClassName="font-semibold"
+          />
+          <Button
+            className="w-full"
+            disabled={insufficient}
+            form="transfer-form"
+            type="submit"
+          >
+            {amount > 0 ? `Send ${formatEtb(amount)}` : "Send"}
+          </Button>
         </Card>
       </div>
       <TransferReview
@@ -177,11 +197,19 @@ export function TransferPage() {
   )
 }
 
-function SummaryLine({ label, value }: { label: string; value: string }) {
+function SummaryLine({
+  label,
+  value,
+  valueClassName,
+}: {
+  label: string
+  value: string
+  valueClassName?: string
+}) {
   return (
     <div className="flex items-center justify-between gap-4">
       <p className="text-copy text-ink-muted">{label}</p>
-      <p className="text-body text-ink">{value}</p>
+      <p className={cn("text-body text-ink", valueClassName)}>{value}</p>
     </div>
   )
 }
