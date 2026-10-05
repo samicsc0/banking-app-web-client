@@ -1,6 +1,7 @@
 "use client"
 
-import type { CSSProperties } from "react"
+import { useSyncExternalStore, type CSSProperties } from "react"
+import { createPortal } from "react-dom"
 
 import { useTheme } from "@/components/theme-provider"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
@@ -12,10 +13,17 @@ import {
   Loader2Icon,
 } from "lucide-react"
 
+const emptySubscribe = () => () => {}
+
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme()
+  const isClient = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
 
-  return (
+  const toaster = (
     <Sonner
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
@@ -42,6 +50,12 @@ const Toaster = ({ ...props }: ToasterProps) => {
       {...props}
     />
   )
+
+  if (!isClient) {
+    return toaster
+  }
+
+  return createPortal(toaster, document.body)
 }
 
 export { Toaster }

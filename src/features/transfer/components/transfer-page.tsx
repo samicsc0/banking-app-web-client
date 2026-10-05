@@ -3,6 +3,7 @@ import { HashIcon, NotebookPenIcon } from "lucide-react"
 import { useEffect, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 import { useNavigate, useSearchParams } from "react-router"
+import { toast } from "sonner"
 
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
@@ -105,11 +106,6 @@ export function TransferPage() {
                 name="note"
                 placeholder="e.g. Rent for September"
               />
-              {transfer.isError ? (
-                <p className="text-caption text-debit" role="alert">
-                  {getErrorMessage(transfer.error)}
-                </p>
-              ) : null}
               <Button
                 className="lg:hidden"
                 disabled={insufficient}
@@ -185,6 +181,9 @@ export function TransferPage() {
               onSuccess: (receipt) => {
                 setReviewOpen(false)
                 navigate("/transfer/success", { state: receipt })
+              },
+              onError: (error) => {
+                toast.error(getErrorMessage(error))
               },
             }
           )
