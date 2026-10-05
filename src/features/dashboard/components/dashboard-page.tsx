@@ -147,7 +147,7 @@ export function DashboardPage() {
               View all
             </Button>
           </div>
-          <Card className="gap-0 divide-y divide-border overflow-hidden bg-surface py-0 ring-border">
+          <Card className="gap-0 overflow-hidden bg-surface py-0 ring-border">
             {list.slice(0, 3).map((account) => (
               <AccountRow account={account} key={account.id} />
             ))}

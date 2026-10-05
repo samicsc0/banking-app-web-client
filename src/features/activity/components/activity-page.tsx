@@ -1,4 +1,9 @@
-import { SearchIcon } from "lucide-react"
+import {
+  MoveDownLeftIcon,
+  MoveUpRightIcon,
+  SearchIcon,
+  type LucideIcon,
+} from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 import { FormProvider, useForm } from "react-hook-form"
 
@@ -23,10 +28,14 @@ import {
 } from "@/features/activity/other/group-transactions"
 import { cn } from "cn"
 
-const filters: Array<{ id: DirectionFilter; label: string }> = [
+const filters: Array<{
+  id: DirectionFilter
+  label: string
+  icon?: LucideIcon
+}> = [
   { id: "ALL", label: "All" },
-  { id: "CREDIT", label: "Money in" },
-  { id: "DEBIT", label: "Money out" },
+  { id: "CREDIT", label: "Money in", icon: MoveUpRightIcon },
+  { id: "DEBIT", label: "Money out", icon: MoveDownLeftIcon },
 ]
 
 export function ActivityPage() {
@@ -99,21 +108,25 @@ export function ActivityPage() {
         ) : null}
       </FormProvider>
       <div className="flex flex-wrap gap-2">
-        {filters.map((filter) => (
-          <Button
-            className={cn(
-              "rounded-full",
-              direction === filter.id ? "" : "bg-surface"
-            )}
-            key={filter.id}
-            onClick={() => setDirection(filter.id)}
-            size="compact"
-            type="button"
-            variant={direction === filter.id ? "primary" : "outline"}
-          >
-            {filter.label}
-          </Button>
-        ))}
+        {filters.map((filter) => {
+          const FilterIcon = filter.icon
+          return (
+            <Button
+              className={cn(
+                "rounded-full",
+                direction === filter.id ? "" : "bg-surface"
+              )}
+              key={filter.id}
+              onClick={() => setDirection(filter.id)}
+              size="compact"
+              type="button"
+              variant={direction === filter.id ? "primary" : "outline"}
+            >
+              {FilterIcon ? <FilterIcon /> : null}
+              {filter.label}
+            </Button>
+          )
+        })}
       </div>
       {transactions.isLoading ? (
         <Skeleton className="h-28 w-full rounded-xl" />

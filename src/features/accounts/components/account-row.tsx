@@ -9,7 +9,7 @@ import { AccountGlyph } from "@/core/lib/icons"
 export function AccountRow({ account }: { account: Account }) {
   return (
     <Button
-      className="h-auto w-full justify-start rounded-none bg-transparent px-4 py-3 text-left font-normal hover:bg-surface-muted"
+      className="h-auto w-full justify-start rounded-none border-0 border-b border-border bg-transparent px-4 py-3 text-left font-normal last:border-b-0 hover:bg-surface-muted"
       render={<Link to={`/accounts/${account.id}`} />}
       variant="ghost"
     >
